@@ -14,8 +14,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="{{ request()->is('comics') ? 'active' : '' }} nav-link" aria-current="page"
-                        href="{{ route('comics.index') }}">i nostri Comics</a>
+                        href="{{ route('comics.index') }}">My Comics</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if ( Request::route()->getName() === 'comics.create') active @endif" href="{{ route('comics.create') }}">Add Comics</a>
+                   </li>
+
             </ul>
         </div>
     </div>

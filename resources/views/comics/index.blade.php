@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>  i miei comics </h1>
+    <h1> My comics </h1>
     <div class="container">
         <table class="table">
             <thead>
