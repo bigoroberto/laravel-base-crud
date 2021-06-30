@@ -14,7 +14,8 @@ class ComicsController extends Controller
      */
     public function index()
     {
-        $comics = Comic::paginate(4);
+        $comics = Comic::orderBy('id','desc')->paginate(4);
+
 
         return view('comics.index', compact('comics'));
     }
@@ -65,9 +66,9 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comic $comic)
     {
-        //
+        return view('comics.edit', compact('comic'));
     }
 
     /**
@@ -77,10 +78,19 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comic $comic)
     {
-        //
+        // leggo il dato in arrivo dal form
+        $data = $request->all();
+        // dd($comic);
+
+        //aggiorna $comic con quello che passo in $data
+        $comic->update($data);
+
+        // alla fine dell'update torna in comics.show
+        return redirect()->route('comics.show', $comic);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -88,8 +98,12 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comic $comic)
     {
-        //
+        $comic->delete();
+
+        // alla fine del delete torna in comics.index
+        return redirect()->route('comics.index')->with('deleted', $comic->title);
     }
+
 }
